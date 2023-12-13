@@ -27,22 +27,31 @@
 
 function createChristmasTree(ornaments, height) {
   let arbolito = ''
+  // CUERPO
   let espaciosInicial = height - 1
-  let ornamentsIndex = 0
+  let ornamentLastIndex = 0
   for (let i = 0; i < height; i++) {
-    let fila = ''
     // Espacios
     const espaciosFila = ' '.repeat(espaciosInicial)
-
     // Pedazo del string que va en la fila
-    const pedazoOrnament = ornaments.slice(ornamentsIndex)
-    ornamentsIndex++
-    if (ornamentsIndex > ornaments.length) {
-      ornamentsIndex = 0
+    let pedazoOrnament = ''
+    for (let z = 0; z <= i; z++) {
+        if (ornamentLastIndex >= ornaments.length) {
+            ornamentLastIndex = 0
+        }
+        pedazoOrnament += ` ${ornaments[ornamentLastIndex]}`
+        ornamentLastIndex++
     }
+    // Saco espacio extra de la izquierda
+    pedazoOrnament = pedazoOrnament.trimStart()
     // Espacios + PedazoStr + \n
-
+    let fila = espaciosFila + pedazoOrnament + '\n'
+    arbolito = arbolito + fila
     // Resto 1 a espacios
     espaciosInicial--
   }
+  // BASE
+  const base = ' '.repeat(height-1) + '|\n'
+  arbolito = arbolito + base
+  return arbolito
 }
